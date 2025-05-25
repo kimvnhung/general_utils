@@ -1,13 +1,16 @@
 import 'dart:ui';
 
 class Constants {
-  static Size DESKTOP_MINIMUM_SIZE = Size(1366, 860);
-  static Size TABLET_SIZE = Size(1024, 1366);
-  static Size SMALL_TABLET_SIZE = Size(768, 1024);
-  static Size MOBILE_SIZE = Size(430, 932);
+  static const Size desktopMinimumSize = Size(1366, 860);
+  static const Size tabletSize = Size(1024, 1366);
+  static const Size smallTabletSize = Size(768, 1024);
+  static const Size mobileSize = Size(430, 932);
 
-  static Size LANDSCAPE_DESKTOP_MINIMUM_SIZE = Size(860, 1366);
-  static Size LANDSCAPE_TABLET_SIZE = Size(1366, 1024);
-  static Size LANDSCAPE_SMALL_TABLET_SIZE = Size(1024, 768);
-  static Size LANDSCAPE_MOBILE_SIZE = Size(932, 430);
+  static const Size landscapeDesktopMinimumSize = Size(860, 1366);
+  static const Size landscapeTabletSize = Size(1366, 1024);
+  static const Size landscapeSmallTabletSize = Size(1024, 768);
+  static const Size landscapeMobileSize = Size(932, 430);
+
+  static Size forceDesignSize = Size.zero;
+  static Size landscapeForceDesignSize = Size.zero;
 }

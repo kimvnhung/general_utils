@@ -19,6 +19,10 @@ extension Responsive on BuildContext {
   }
 
   Size designSize() {
+    if (_forceDesignSize() != Size.zero) {
+      return _forceDesignSize();
+    }
+
     return responsive<Size>(
       defaultSize(),
       smallTablet: _smallTabletSize(),
@@ -31,31 +35,38 @@ extension Responsive on BuildContext {
     return _mobileSize();
   }
 
+  Size _forceDesignSize() {
+    return orientation<Size>(
+      Constants.forceDesignSize,
+      landscape: Constants.landscapeForceDesignSize,
+    );
+  }
+
   Size _mobileSize() {
     return orientation<Size>(
-      Constants.MOBILE_SIZE,
-      landscape: Constants.LANDSCAPE_MOBILE_SIZE,
+      Constants.mobileSize,
+      landscape: Constants.landscapeMobileSize,
     );
   }
 
   Size _tabletSize() {
     return orientation<Size>(
-      Constants.TABLET_SIZE,
-      landscape: Constants.LANDSCAPE_TABLET_SIZE,
+      Constants.tabletSize,
+      landscape: Constants.landscapeTabletSize,
     );
   }
 
   Size _smallTabletSize() {
     return orientation<Size>(
-      Constants.SMALL_TABLET_SIZE,
-      landscape: Constants.LANDSCAPE_SMALL_TABLET_SIZE,
+      Constants.smallTabletSize,
+      landscape: Constants.landscapeSmallTabletSize,
     );
   }
 
   Size _desktopSize() {
     return orientation<Size>(
-      Constants.DESKTOP_MINIMUM_SIZE,
-      landscape: Constants.LANDSCAPE_DESKTOP_MINIMUM_SIZE,
+      Constants.desktopMinimumSize,
+      landscape: Constants.landscapeDesktopMinimumSize,
     );
   }
 
