@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-
-const Size DESKTOP_MINIMUM_SIZE = Size(1366, 860);
-const Size TABLET_SIZE = Size(1024, 1366);
-const Size SMALL_TABLET_SIZE = Size(768, 1024);
-const Size MOBILE_SIZE = Size(430, 932);
+import 'package:general_utils/src/commons/constants.dart';
 
 extension Responsive on BuildContext {
   T responsive<T>(
@@ -13,24 +9,54 @@ extension Responsive on BuildContext {
     T? desktop,
   }) {
     final wd = MediaQuery.of(this).size.width;
-    return wd >= DESKTOP_MINIMUM_SIZE.width
+    return wd >= _desktopSize().width
         ? (desktop ?? tablet ?? smallTablet ?? defaultVal)
-        : wd >= TABLET_SIZE.width
+        : wd >= _tabletSize().width
             ? (tablet ?? smallTablet ?? defaultVal)
-            : wd >= SMALL_TABLET_SIZE.width
+            : wd >= _smallTabletSize().width
                 ? (smallTablet ?? defaultVal)
                 : defaultVal;
   }
 
   Size designSize() {
-    return orientation<Size>(
-      MOBILE_SIZE,
-      landscape: DESKTOP_MINIMUM_SIZE,
+    return responsive<Size>(
+      defaultSize(),
+      smallTablet: _smallTabletSize(),
+      tablet: _tabletSize(),
+      desktop: _desktopSize(),
     );
   }
 
   Size defaultSize() {
-    return MOBILE_SIZE;
+    return _mobileSize();
+  }
+
+  Size _mobileSize() {
+    return orientation<Size>(
+      Constants.MOBILE_SIZE,
+      landscape: Constants.LANDSCAPE_MOBILE_SIZE,
+    );
+  }
+
+  Size _tabletSize() {
+    return orientation<Size>(
+      Constants.TABLET_SIZE,
+      landscape: Constants.LANDSCAPE_TABLET_SIZE,
+    );
+  }
+
+  Size _smallTabletSize() {
+    return orientation<Size>(
+      Constants.SMALL_TABLET_SIZE,
+      landscape: Constants.LANDSCAPE_SMALL_TABLET_SIZE,
+    );
+  }
+
+  Size _desktopSize() {
+    return orientation<Size>(
+      Constants.DESKTOP_MINIMUM_SIZE,
+      landscape: Constants.LANDSCAPE_DESKTOP_MINIMUM_SIZE,
+    );
   }
 
   T orientation<T>(
