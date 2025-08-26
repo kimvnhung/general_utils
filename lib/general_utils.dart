@@ -1,3 +1,3 @@
-library general_utils;
+library;
 
 export 'src/general.dart';
