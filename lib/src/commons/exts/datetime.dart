@@ -17,6 +17,82 @@ extension Datetime2Now on DateTime? {
     }
   }
 
+  String comparablePresent() {
+    if (this == null) return "";
+    final now = DateTime.now();
+
+    // Same week
+    final weekStart = now.subtract(Duration(days: now.weekday - 1));
+    final weekEnd = weekStart.add(Duration(days: 6));
+    if (this!.day == now.day &&
+        this!.month == now.month &&
+        this!.year == now.year) {
+      // Return starting of today
+      return now
+          .toLocal()
+          .copyWith(
+              hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0)
+          .toString();
+    } else if (this!.day == now.subtract(const Duration(days: 1)).day &&
+        this!.month == now.month &&
+        this!.year == now.year) {
+      // Return starting of yesterday
+      return now
+          .subtract(const Duration(days: 1))
+          .toLocal()
+          .copyWith(
+            hour: 0,
+            minute: 0,
+            second: 0,
+            millisecond: 0,
+            microsecond: 0,
+          )
+          .toString();
+    } else if (this!.isAfter(weekStart) &&
+        this!.isBefore(weekEnd.add(Duration(days: 1)))) {
+      // Return starting of this week
+      return weekStart
+          .toLocal()
+          .copyWith(
+            hour: 0,
+            minute: 0,
+            second: 0,
+            millisecond: 0,
+            microsecond: 0,
+          )
+          .toString();
+    }
+
+    // Same month
+    if (this!.year == now.year && this!.month == now.month) {
+      // Return starting of this month
+      return now
+          .toLocal()
+          .copyWith(
+            day: 1,
+            hour: 0,
+            minute: 0,
+            second: 0,
+            millisecond: 0,
+            microsecond: 0,
+          )
+          .toString();
+    }
+
+    // Return starting of the month
+    return this!
+        .toLocal()
+        .copyWith(
+          day: 1,
+          hour: 0,
+          minute: 0,
+          second: 0,
+          millisecond: 0,
+          microsecond: 0,
+        )
+        .toString();
+  }
+
   String present() {
     if (this == null) return "";
     final now = DateTime.now();
