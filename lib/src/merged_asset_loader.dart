@@ -21,9 +21,9 @@ class MergedAssetLoader extends AssetLoader {
 
     List<String> tempFilePaths = <String>[];
     // List all .json files in folders list then add to tempFilePaths
-    final manifestContent = await rootBundle.loadString('AssetManifest.json');
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-    for (var key in manifestMap.keys) {
+    final assetManifest = await AssetManifest.loadFromAssetBundle(rootBundle);
+    final allAssets = assetManifest.listAssets();
+    for (var key in allAssets) {
       if (key.contains('$localeFolder/') && key.contains('.json')) {
         tempFilePaths.add(key);
       }
