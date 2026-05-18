@@ -93,6 +93,23 @@ extension Datetime2Now on DateTime? {
         .toString();
   }
 
+  /// Returns a human-friendly label for the date.
+  ///
+  /// - Today → `'today'.tr()`
+  /// - Tomorrow → `'tomorrow'.tr()`
+  /// - Yesterday → `'yesterday'.tr()`
+  /// - Otherwise → `dd/MM/yyyy`
+  String dateLabel() {
+    if (this == null) return "";
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final d = DateTime(this!.year, this!.month, this!.day);
+    if (d == today) return 'today'.tr();
+    if (d == today.add(const Duration(days: 1))) return 'tomorrow'.tr();
+    if (d == today.subtract(const Duration(days: 1))) return 'yesterday'.tr();
+    return DateFormat('dd/MM/yyyy').format(this!);
+  }
+
   String present() {
     if (this == null) return "";
     final now = DateTime.now();
