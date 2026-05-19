@@ -65,30 +65,30 @@ extension Datetime2Now on DateTime? {
 
     // Same month
     if (this!.year == now.year && this!.month == now.month) {
-      // Return starting of this month
+      // Return end of this month
       return now
           .toLocal()
           .copyWith(
-            day: 1,
-            hour: 0,
-            minute: 0,
-            second: 0,
-            millisecond: 0,
-            microsecond: 0,
+            day: DateTime(now.year, now.month + 1, 0).day,
+            hour: 23,
+            minute: 59,
+            second: 59,
+            millisecond: 999,
+            microsecond: 999,
           )
           .toString();
     }
 
-    // Return starting of the month
+    // Return end of the month
     return this!
         .toLocal()
         .copyWith(
-          day: 1,
-          hour: 0,
-          minute: 0,
-          second: 0,
-          millisecond: 0,
-          microsecond: 0,
+          day: DateTime(this!.year, this!.month + 1, 0).day,
+          hour: 23,
+          minute: 59,
+          second: 59,
+          millisecond: 999,
+          microsecond: 999,
         )
         .toString();
   }
