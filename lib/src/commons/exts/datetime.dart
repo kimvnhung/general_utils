@@ -113,25 +113,26 @@ extension Datetime2Now on DateTime? {
   String present() {
     if (this == null) return "";
     final now = DateTime.now();
+    final localTime = this!.toLocal();
 
     // Same week
     final weekStart = now.subtract(Duration(days: now.weekday - 1));
     final weekEnd = weekStart.add(Duration(days: 6));
-    if (this!.day == now.day &&
-        this!.month == now.month &&
-        this!.year == now.year) {
+    if (localTime.day == now.day &&
+        localTime.month == now.month &&
+        localTime.year == now.year) {
       return "today".tr();
-    } else if (this!.day == now.subtract(const Duration(days: 1)).day &&
-        this!.month == now.month &&
-        this!.year == now.year) {
+    } else if (localTime.day == now.subtract(const Duration(days: 1)).day &&
+        localTime.month == now.month &&
+        localTime.year == now.year) {
       return "yesterday".tr();
-    } else if (this!.isAfter(weekStart) &&
-        this!.isBefore(weekEnd.add(Duration(days: 1)))) {
+    } else if (localTime.isAfter(weekStart) &&
+        localTime.isBefore(weekEnd.add(Duration(days: 1)))) {
       return "thisWeek".tr();
     }
 
     // Same month
-    if (this!.year == now.year && this!.month == now.month) {
+    if (localTime.year == now.year && localTime.month == now.month) {
       return "thisMonth".tr();
     }
 
@@ -149,7 +150,7 @@ extension Datetime2Now on DateTime? {
       "october".tr(),
       "november".tr(),
       "december".tr()
-    ][this!.month - 1];
-    return "$monthName, ${this!.year}";
+    ][localTime.month - 1];
+    return "$monthName, ${localTime.year}";
   }
 }
