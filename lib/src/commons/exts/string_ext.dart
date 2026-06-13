@@ -32,4 +32,13 @@ extension ParseLocalizedDouble on String? {
       return null;
     }
   }
+
+  bool isEndsWithDecimalSeparator(BuildContext context) {
+    final locale = Localizations.localeOf(context);
+    final format = NumberFormat.decimalPattern(
+      '${locale.languageCode}_${locale.countryCode}',
+    );
+    final decimalSeparator = format.symbols.DECIMAL_SEP;
+    return this?.endsWith(decimalSeparator) ?? false;
+  }
 }
